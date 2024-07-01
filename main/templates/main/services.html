@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <h1>Services</h1>
+    <a href="{% url 'service_create' %}">Agrega Servico</a>
+    <ul>
+        {% for service in services %}
+            <li>
+                <h2>{{ service.title }}</h2>
+                <p>{{ service.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+
+    <h1>{% if form.instance.pk %}Edit{% else %}Create{% endif %} Servicios</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+
+
+
+
+    <h1>Delete Service</h1>
+    <p>Bienvenido a InnovateNow Somos una aceleradora de startups dedicada a impulsar la innovación y el crecimiento empresarial. En InnovateNow, nos especializamos en apoyar a emprendedores con ideas disruptivas, proporcionando el ambiente y los recursos necesarios para convertir visiones en realidades. Descubre cómo podemos transformar tu idea en un negocio exitoso. "{{ service.title }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'service_list' %}">Cancel</a>
+    </form>
+{% endblock %}
